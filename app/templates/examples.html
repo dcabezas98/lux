@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Welcome to LUX :)<br/></h1>
+{% endblock %}
+
+
+{% block content %}
+<p>Adjust the illumination of dark images.</p>
+<img src="{{url_for('static', filename='example-home.png')}}"></img>
+<p>Click <a href="/lightup" class="link-btn">here</a> to start. Or you can watch some <a href="/examples" class="link-btn">examples</a>.
+{% endblock %}
