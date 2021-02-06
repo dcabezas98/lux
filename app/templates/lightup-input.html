@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<form class="form-inline " method="POST" action="/lightup">
+<form class="form-inline " method="POST" action="/lightup" enctype = "multipart/form-data">
     <label for="input-img">Upload image:</label>
     <input type="file" accept=".jpg, .jpeg, .png, .tiff, .tif" name="input-img"/>
     <button class="btn btn mt-sm-2" id="btn-submit" type="submit">Submit</button>

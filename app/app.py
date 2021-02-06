@@ -1,8 +1,9 @@
 #./app/app.py
 
 from flask import Flask, render_template, request, flash, redirect, url_for
-
-import tensorflow as tf
+from model import lightUp
+from tempfile import NamedTemporaryFile
+from shutil import copyfileobj
 
 app = Flask(__name__)
 # Página principal, con índice
@@ -15,12 +16,16 @@ def home():
     return render_template('home.html')
 
 @app.route('/lightup', methods=['GET','POST'])
-def lightUp():    
+def light_up():    
     if request.method == 'POST':
         # Procesar imagen
-        inimg=flask.request.files.get('input-img','')
+        inimg=request.files.get('input-img','')
         app.logger.debug(type(inimg))
-        return render_template('lightup-output.html')
+        app.logger.debug(inimg)
+        outimg=lightUp(inimg)
+        tempFileObj = NamedTemporaryFile(suffix='jpg')
+        coyfileobj(outimg, tempFileObj)
+        return render_template('lightup-output.html', img=tempFileObj)
     else:
         return render_template('lightup-input.html')
         
