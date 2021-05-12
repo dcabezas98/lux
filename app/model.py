@@ -2,7 +2,7 @@
 
 import tensorflow as tf
 
-GEN_PATH=PATH+'models/GAN-generator'
+GEN_PATH='static/models/GAN-generator'
 
 generator = tf.keras.models.load_model(GEN_PATH)
 
@@ -32,4 +32,6 @@ def lightUp(img_path):
         
     out = prediction[0]
     out = out[:HEIGHT,:WIDTH]
-    return out*0.5+0.5
+    out = tf.dtypes.cast((out+1)*127.5,tf.int32)
+    out = out.numpy()
+    return out
