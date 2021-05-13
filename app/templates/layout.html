@@ -3,17 +3,6 @@
     <title>LUX</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Highcharts -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-
-    <!-- Leaflet interactive maps -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-	  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-	  crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-	    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-	    crossorigin=""></script>
-
     <!-- favicon -->
     <link rel="icon" type="image/png" href="{{url_for('static', filename='favicon-color.png')}}"/>
 
@@ -38,6 +27,9 @@
 	    <li class="nav-item active mr-1" id="navb-item">
 	      <a class="nav-link" href="/examples">Examples</a>
 	    </li>
+		<li class="nav-item active mr-1" id="navb-item">
+			<a class="nav-link" href="/about">About</a>
+		  </li>
 	  </ul>
 	  <strong class="text mr-4" style="color:#FFFFFF;background-color:#000000;" id="date"></strong>
 	  <script src="{{url_for('static', filename='date.js')}}"></script>
@@ -72,13 +64,6 @@
 	</main>
       </div>
     </div>
-
-    <!-- Sicky footer -->
-    <footer class="footer">
-      <div class="container mt">
-	<span class="text-muted">David Cabezas Berrido</span>
-      </div>
-    </footer>
 
     <!-- Bootstrap core JavaScript
 	 ================================================== -->

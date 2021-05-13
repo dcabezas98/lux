@@ -1,6 +1,6 @@
 #./app/app.py
 
-from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 import os
 import io
 from PIL import Image
@@ -14,6 +14,7 @@ PORT_NUMBER='8080'
 UPLOAD_FOLDER = 'upload'
 
 app = Flask(__name__)
+app.secret_key='this-is-a-secret-key'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Página principal, con índice
@@ -24,6 +25,14 @@ def index():
 @app.route('/home')
 def home():
     return render_template('home.html')
+    
+@app.route('/examples')
+def examples():
+    return render_template('examples.html')
+    
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/lightup', methods=['GET','POST'])
 def light_up():
@@ -31,6 +40,9 @@ def light_up():
         # Procesar imagen
         image=request.files['input-img']
         extension=image.filename.split('.')[-1]
+        if extension not in ['jpeg','jpg','png']:
+        	flash('Unsupported format :(  Supported formats are .jpg, .jpeg and .png')
+        	return render_template('lightup-input.html')
         identifier=uuid4()
         path = os.path.join(app.config['UPLOAD_FOLDER'],str(identifier)+'-'+image.filename)
         image.save(path)
@@ -46,8 +58,7 @@ def light_up():
         img_base64 = base64.b64encode(rawBytes.getvalue()).decode('ascii')
         mime = "image/"+str(extension)
         uri = "data:%s;base64,%s"%(mime, img_base64)
-		# TODO: borrar en upload
-        return render_template('lightup-output.html', img=uri)
+        return render_template('lightup-output.html', img=uri, filename=image.filename)
     else:
         return render_template('lightup-input.html')
         

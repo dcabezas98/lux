@@ -1,12 +1,48 @@
 {% extends "layout.html" %}
 
 {% block name %}
-<h1>Welcome to LUX :)<br/></h1>
+<h1>Examples of images lighted up by LUX<br/></h1>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    .column {
+      width: 50%;
+      padding: 5px;
+    }
+    
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    figure{
+        display: inline-block;
+    }
+    </style>
 {% endblock %}
 
-
 {% block content %}
-<p>Adjust the illumination of dark images.</p>
-<img src="{{url_for('static', filename='example-home.png')}}"></img>
-<p>Click <a href="/lightup" class="link-btn">here</a> to start. Or you can watch some <a href="/examples" class="link-btn">examples</a>.
+<div class="col-md-12 col-lg-10 mx-auto mt-2">
+  <a class="btn btn-outline-success  mr-5 my-2" onclick="prev()"> Previous</a>
+  <a class="btn btn-outline-success  ml-5 my-2" onclick="next()"> Next</a>
+  <div class="row">
+    <div class="column">
+        <figure>
+            <img id="example-input" alt="Input" width="450px">
+            <figcaption>Input image.</figcaption>
+        </figure>
+    </div>
+    <div class="column">
+        <figure>
+            <img id="example-output" alt="Output" width="450px">
+            <figcaption>Generated output.</figcaption>
+        </figure>
+    </div>
+  </div> 
+</div>
+<script src="{{url_for('static', filename='example-slider.js')}}"></script>
 {% endblock %}

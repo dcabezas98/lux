@@ -5,9 +5,12 @@
 {% endblock %}
 
 {% block content %}
+Upload an image to light it up.
 <form class="form-inline " method="POST" action="/lightup" enctype = "multipart/form-data">
     <label for="input-img">Upload image: &nbsp; </label>
-    <input type="file" accept=".jpg, .jpeg, .png, .tiff, .tif" name="input-img"/>
+    <input type="file" accept=".jpg, .jpeg, .png" name="input-img"/>
     <button class="btn btn mt-sm-2" id="btn-submit" type="submit">Submit</button>
 </form>
+Supported formats are <code>.jpg</code>, <code>.jpeg</code> and <code>.png</code>. <br/>
+Processing the image may take a few seconds, depending on its resolution.
 {% endblock %}
