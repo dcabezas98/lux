@@ -12,7 +12,7 @@ body {
     color: black;
 }
 .dark-mode {
-    background-color: black;
+    background-color: #222;
     color: white;
 }
 
@@ -81,8 +81,13 @@ body {
 #darkBtn:hover{
 }
 
-#locationBtn{
-    background-color: #ffc040;
-    border-color: #ffc040;
+.slide-btn{
+    background-color: #afaf1f;
+    border-color: #afaf1f;
     color: #000000;
+}
+
+.slide-btn:hover{
+    background-color: #cfcf4f;
+    border-color: #cfcf4f;
 }

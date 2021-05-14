@@ -17,7 +17,6 @@ app = Flask(__name__)
 app.secret_key='this-is-a-secret-key'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Página principal, con índice
 @app.route('/')
 def index():
     return redirect(url_for('home'))
@@ -37,7 +36,6 @@ def about():
 @app.route('/lightup', methods=['GET','POST'])
 def light_up():
     if request.method == 'POST':
-        # Procesar imagen
         image=request.files['input-img']
         extension=image.filename.split('.')[-1]
         if extension not in ['jpeg','jpg','png']:
@@ -61,8 +59,7 @@ def light_up():
         return render_template('lightup-output.html', img=uri, filename=image.filename)
     else:
         return render_template('lightup-input.html')
-        
-# Manejador de error 404: URL no definida
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
