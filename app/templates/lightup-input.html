@@ -5,12 +5,33 @@
 {% endblock %}
 
 {% block content %}
-Upload an image to light it up.
+<p>Upload an image to light it up.</p>
 <form class="form-inline " method="POST" action="/lightup" enctype = "multipart/form-data">
-    <label for="input-img">Upload image: &nbsp; </label>
-    <input type="file" accept=".jpg, .jpeg, .png" name="input-img"/>
+    <label for="file">Upload image: &nbsp; </label>
+    <input type="file" accept=".jpg, .jpeg, .png" name="file"/>
     <button class="btn btn mt-sm-2" id="btn-submit" type="submit">Submit</button>
 </form>
+
+<p>Or you can drop it here.</p>
+<form action="/lightup" method="POST" class="dropzone" enctype = "multipart/form-data">
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+
+<style>
+.dropzone{
+    background-color: rgb(184, 154, 175);
+    color: black;
+}
+</style>
+
+<script>
+$('.dropzone').on('success', function(f,r) {  
+    // Look at the output in you browser console, if there is something interesting
+    console.log("PATATA");
+    console.log(r);
+  });
+</script>
+
 Supported formats are <code>.jpg</code>, <code>.jpeg</code> and <code>.png</code>. <br/>
 Processing the image may take a few seconds, depending on its resolution.
 {% endblock %}

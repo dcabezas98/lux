@@ -5,15 +5,10 @@
 {% endblock %}
 
 {% block content %}
-<style>
-    #output {
-      max-width: 75%;
-      height: auto;
-    }
-</style>
+
 Here you go.
 <br/>
-<img id="output" src="{{img}}"/>
+<img id="output" src="{{img}}" width="{{width}}" height="auto"/>
 <br/>
 Click <a download="{{filename}}" href="{{img}}">here</a> to download it.
 {% endblock %}

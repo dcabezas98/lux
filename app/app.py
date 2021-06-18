@@ -36,7 +36,7 @@ def about():
 @app.route('/lightup', methods=['GET','POST'])
 def light_up():
     if request.method == 'POST':
-        image=request.files['input-img']
+        image=request.files['file']
         extension=image.filename.split('.')[-1]
         if extension not in ['jpeg','jpg','png']:
         	flash('Unsupported format :(  Supported formats are .jpg, .jpeg and .png')
@@ -47,6 +47,10 @@ def light_up():
         output=lightUp(path)
         os.remove(path)
         output = Image.fromarray(output.astype("uint8"))
+        w, h = output.size
+        width="80%"
+        if (h/w>0.5): # Adjust display dimensions
+        	width=str(40*w/h)+"%" # Same proportions. Height limited to 40% and width limited to 80%
         rawBytes = io.BytesIO()
         extension_aux=extension
         if extension_aux.lower()=='jpg':
@@ -56,7 +60,7 @@ def light_up():
         img_base64 = base64.b64encode(rawBytes.getvalue()).decode('ascii')
         mime = "image/"+str(extension)
         uri = "data:%s;base64,%s"%(mime, img_base64)
-        return render_template('lightup-output.html', img=uri, filename=image.filename)
+        return render_template('lightup-output.html', img=uri, width=width, filename=image.filename)
     else:
         return render_template('lightup-input.html')
 
