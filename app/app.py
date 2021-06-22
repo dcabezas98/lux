@@ -8,8 +8,8 @@ from uuid import uuid4
 import base64
 from model import lightUp
 
-#HOST='localhost'
-#PORT_NUMBER='8080'
+HOST='localhost'
+PORT_NUMBER='8080'
 
 UPLOAD_FOLDER = 'upload'
 
@@ -51,7 +51,7 @@ def light_up():
         output = Image.fromarray(output.astype("uint8"))
         w, h = output.size
         if resized:
-        	flash('Warning: Your image was too large and it was resized to width ' + str(w) + ' and height ' +str(h)+'.')
+        	flash('Warning: Your image was too large, so it was resized to width ' + str(w) + ' and height ' +str(h)+'.')
         os.remove(path)
         width="80%"
         if (h/w>0.5): # Adjust display dimensions

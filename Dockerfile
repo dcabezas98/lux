@@ -1,7 +1,6 @@
 # Dockerfile
 FROM python:3.7
 
-# directorio dentro del contenedor para el código
 WORKDIR /app
 COPY . /app
 
