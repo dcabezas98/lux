@@ -1,6 +1,7 @@
 #./app/model.py
 
 import tensorflow as tf
+from math import sqrt
 
 GEN_PATH='static/models/GAN-generator'
 
@@ -15,9 +16,18 @@ def lightUp(img_path):
     dat = tf.data.Dataset.from_tensor_slices([img_path])
     dat = dat.map(decode_normalize)
     dat = dat.batch(1)
+    resized=False # If the image is too large, it will be resize to avoid resource overload
     for img in dat:
         HEIGHT = img.shape[1]
         WIDTH = img.shape[2]
+        n_pixels=HEIGHT*WIDTH
+        if HEIGHT<128 or WIDTH<128: # Minimum dimensions
+        	return None, None
+        if n_pixels>1536**2: # The image exceeds the maximum number of pixels
+        	HEIGHT= int(HEIGHT*1536/sqrt(n_pixels))
+        	WIDTH= int(WIDTH*1536/sqrt(n_pixels))
+        	img=tf.image.resize(img, [HEIGHT, WIDTH], method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+        	resized=True
         HPAD = (256-HEIGHT%256)%256
         WPAD = (256-WIDTH%256)%256
         # Horizontal bottom border
@@ -34,4 +44,4 @@ def lightUp(img_path):
     out = out[:HEIGHT,:WIDTH]
     out = tf.dtypes.cast((out+1)*127.5,tf.int32)
     out = out.numpy()
-    return out
+    return out, resized
