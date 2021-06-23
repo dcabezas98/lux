@@ -8,9 +8,6 @@ from uuid import uuid4
 import base64
 from model import lightUp
 
-HOST='localhost'
-PORT_NUMBER='8080'
-
 UPLOAD_FOLDER = 'upload'
 
 app = Flask(__name__)
@@ -45,6 +42,7 @@ def light_up():
         path = os.path.join(app.config['UPLOAD_FOLDER'],str(identifier)+'-'+image.filename)
         image.save(path)
         output, resized = lightUp(path)
+        os.remove(path)
         if resized == None:
         	flash('The image is too small :( - The minimum height and width are 128 pixels.')
         	return render_template('lightup-input.html')
@@ -52,7 +50,6 @@ def light_up():
         w, h = output.size
         if resized:
         	flash('Warning: Your image was too large, so it was resized to width ' + str(w) + ' and height ' +str(h)+'.')
-        os.remove(path)
         width="80%"
         if (h/w>0.5): # Adjust display dimensions
         	width=str(40*w/h)+"%" # Same proportions. Height limited to 40% and width limited to 80%
@@ -73,5 +70,5 @@ def light_up():
 def page_not_found(e):
     return render_template('404.html'), 404
     
-#if __name__ == '__main__':
-#	app.run(host=HOST, port=PORT_NUMBER, debug=True)
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))

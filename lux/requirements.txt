@@ -1,0 +1,5 @@
+# requirements.txt
+flask
+tensorflow>=2.0
+gunicorn
+Pillow
