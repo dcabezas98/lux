@@ -43,9 +43,9 @@ def light_up():
         image.save(path)
         output, resized = lightUp(path)
         os.remove(path)
-        if resized == None:
-        	flash('The image is too small :( - The minimum height and width are 128 pixels.')
-        	return render_template('lightup-input.html')
+        #if resized == None:
+        #	flash('The image is too small :( - The minimum height and width are 128 pixels.')
+        #	return render_template('lightup-input.html')
         output = Image.fromarray(output.astype("uint8"))
         w, h = output.size
         if resized:

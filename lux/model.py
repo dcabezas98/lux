@@ -5,8 +5,8 @@ from math import sqrt
 
 GEN_PATH='static/models/GAN-generator'
 
-MIN_H=128
-MIN_W=128
+#MIN_H=128
+#MIN_W=128
 MAX_PIXELS=2048*3072
 
 generator = tf.keras.models.load_model(GEN_PATH)
@@ -24,16 +24,18 @@ def lightUp(img_path):
     for img in dat:
         HEIGHT = img.shape[1]
         WIDTH = img.shape[2]
-        n_pixels=HEIGHT*WIDTH
-        if HEIGHT<MIN_H or WIDTH<MIN_W: # Minimum dimensions
-        	return None, None
+        HPAD = (256-HEIGHT%256)%256
+        WPAD = (256-WIDTH%256)%256
+        n_pixels=(HEIGHT+HPAD)*(WIDTH+WPAD)
+        #if HEIGHT<MIN_H or WIDTH<MIN_W: # Minimum dimensions
+        #	return None, None
         if n_pixels>MAX_PIXELS: # The image exceeds the maximum number of pixels
         	HEIGHT= int(HEIGHT*sqrt(MAX_PIXELS/n_pixels))
         	WIDTH= int(WIDTH*sqrt(MAX_PIXELS/n_pixels))
         	img=tf.image.resize(img, [HEIGHT, WIDTH], method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+        	HPAD = (256-HEIGHT%256)%256
+        	WPAD = (256-WIDTH%256)%256
         	resized=True
-        HPAD = (256-HEIGHT%256)%256
-        WPAD = (256-WIDTH%256)%256
         # Horizontal bottom border
         row = img[0,-1,...]
         hpad = tf.tile(row[tf.newaxis,...],[HPAD,1,1])[tf.newaxis,...]
